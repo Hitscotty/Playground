@@ -113,7 +113,6 @@
       return R.pipe(R.valuesIn, R.join(""), encodeURIComponent)(elem);
     },
     addRow() {
-      console.log("add row");
       // call to server
     },
     removeRows() {

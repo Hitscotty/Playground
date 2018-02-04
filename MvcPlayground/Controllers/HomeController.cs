@@ -506,60 +506,26 @@ namespace MvcPlayground.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
         [HttpPost]
-        public JsonResult GetData(JqDataTable model)
+        public JsonResult GetData(JqDataTable<Sample> model)
         {
+            // get data source 
 
             var results = SampleDataBaseData;
-            // is sort
-            if(model.order.Count == 1){
-                
-                var column = model.order.ElementAt(0).column;
-                var sortType = model.order.ElementAt(0).dir;
-                var colName = model.columns.ElementAt(column).data;
+            model.Init(SampleDataBaseData);
 
-                if(sortType == "asc"){
-                    results = SampleDataBaseData.OrderBy(x => x.GetType().GetProperty(colName).GetValue(x,null)).ToList();
-                } else {
-                    results = SampleDataBaseData.OrderByDescending(x => x.GetType().GetProperty(colName).GetValue(x,null)).ToList();
-                }
+            // sort results
+            model.Sorter();
 
-            }
+            // search results 
+            model.Searcher();
 
-            // is multi sort
-                if(model.order.Count > 1){
-                // handle multi column sorting
-            }
+            // paginate results
+            model.Paginator();
 
-            // if global search
-            if(!String.IsNullOrEmpty(model.search.value)){
-                var query = model.search.value.ToLower();
 
-                results = results.Where(x =>
-                {
-                    // check all keys for value 
-                    foreach(var prop in x.GetType().GetProperties()){
-                        var currentValue = prop.GetValue(x, null).ToString().ToLower();
-                        if(currentValue.Contains(query)){
-                            return true;
-                        }
-                    }
-                    return false;
-                }).ToList();
-            }
-
-            //paginate
-            results = results.Skip((int) model.start).Take((int) model.length).ToList();
-
-            var js = new
-            {
-                draw = (int) model.draw, 
-                recordsTotal = SampleDataBaseData.Count(),
-                recordsFiltered = SampleDataBaseData.Count(),
-                data = results
-            };
-
-            return new JsonResult(js);
+            return new JsonResult(model.Response());
         }
        }
     }
