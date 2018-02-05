@@ -21,74 +21,8 @@ namespace MvcPlayground.Models
         public void Init(IEnumerable<T> source){
             // state changing
             results = source;
-
             // immutable original
             Source = source;
-        }
-
-        public IEnumerable<T> Searcher()
-        {
-
-            // is sort
-            if (order.Count == 1)
-            {
-
-                var column = order.ElementAt(0).column;
-                var sortType = order.ElementAt(0).dir;
-                var colName = columns.ElementAt(column).data;
-
-                if (sortType == "asc")
-                {
-                    results = results.OrderBy(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
-                }
-                else
-                {
-                    results = results.OrderByDescending(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
-                }
-
-            }
-
-            // is multi sort
-            if (order.Count > 1)
-            {
-                // handle multi column sorting
-            }
-
-            return results;
-        }
-
-        public IEnumerable<T> Sorter()
-        {
-
-            if (!String.IsNullOrEmpty(search.value))
-            {
-                var query = search.value.ToLower();
-
-                results = results.Where(x =>
-                {
-                    // check all keys for value 
-                    foreach (var prop in x.GetType().GetProperties())
-                    {
-                        var currentValue = prop.GetValue(x, null).ToString().ToLower();
-                        if (currentValue.Contains(query))
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }).ToList();
-
-            }
-
-            return results;
-        }
-
-        public IEnumerable<T> Paginator()
-        {
-
-            results = results.Skip((int)start).Take((int)length).ToList();
-
-            return results;
         }
 
         public Response<T> Response(){
@@ -131,5 +65,64 @@ namespace MvcPlayground.Models
         public int recordsTotal { get; set; }
         public int recordsFiltered { get; set; }
         public IEnumerable<T> data { get; set; }
+    }
+
+    public static class JqExtensions {
+        
+        public static JqDataTable<T> Sort<T>(this JqDataTable<T> model){
+
+            // is sort
+            if (model.order.Count == 1)
+            {
+
+                var column = model.order.ElementAt(0).column;
+                var sortType = model.order.ElementAt(0).dir;
+                var colName = model.columns.ElementAt(column).data;
+
+                if (sortType == "asc")
+                {
+                    model.results = model.results.OrderBy(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
+                }
+                else
+                {
+                    model.results = model.results.OrderByDescending(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
+                }
+
+            }
+
+            return model;
+        }
+
+        public static JqDataTable<T> Search<T>(this JqDataTable<T> model){
+            
+            if (!String.IsNullOrEmpty(model.search.value))
+            {
+                var query = model.search.value.ToLower();
+
+                model.results = model.results.Where(x =>
+                {
+                    // check all keys for value 
+                    foreach (var prop in x.GetType().GetProperties())
+                    {
+                        var currentValue = prop.GetValue(x, null).ToString().ToLower();
+                        if (currentValue.Contains(query))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }).ToList();
+
+            }
+
+            return model;
+        }
+
+        public static JqDataTable<T> Paginate<T>(this JqDataTable<T> model){
+
+            model.results = model.results.Skip((int)model.start).Take((int)model.length).ToList();
+
+            return model;
+        }
     }
 }

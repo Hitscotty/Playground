@@ -511,21 +511,15 @@ namespace MvcPlayground.Controllers
         public JsonResult GetData(JqDataTable<Sample> model)
         {
             // get data source 
-
-            var results = SampleDataBaseData;
             model.Init(SampleDataBaseData);
 
             // sort results
-            model.Sorter();
-
-            // search results 
-            model.Searcher();
-
-            // paginate results
-            model.Paginator();
-
-
-            return new JsonResult(model.Response());
+            var toClient = model.Sort()
+                                .Search()
+                                .Paginate()
+                                .Response();
+            
+            return new JsonResult(toClient);
         }
        }
     }
