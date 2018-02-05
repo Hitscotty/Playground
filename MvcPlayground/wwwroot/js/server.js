@@ -87,7 +87,15 @@
             title: "Salary",
             data: "salary"
           }
-        ]
+        ],
+        drawCallback: function () {
+          // give buttons margin
+          $(".dt-buttons").css("margin", "10px");
+          // give vuetifull css
+          $(".paginate_button").each((v, e) => {
+            $(e).addClass("paginator-button paginator-page-number");
+          });
+        }
       });
       // add checkbox event
       $("#table tbody").on("change", ".tcb", function () {

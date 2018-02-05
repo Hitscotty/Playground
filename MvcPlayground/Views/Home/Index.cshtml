@@ -1,10 +1,12 @@
 ﻿@{ ViewData["Title"] = "Home Page"; } 
 @section head{
-<link rel="stylesheet" type="text/css" href="~/css/styles.css" />
+<link rel="stylesheet" type="text/css" href="~/css/vuetiful.css" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/components/form.css"/>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/dataTables.semanticui.css" />
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css"> 
+
 }
+
 
 <div id="PaginationExamples" class="container-fluid">
     <div class="col-lg-12">
@@ -13,10 +15,10 @@
         </div>
         <br/>
         <div class="row">
-            <div class="datatable table-wrapper table-fixed">
+            <div class="datatable">
                     <div class="row">
-                            <button type="button"  data-toggle="modal" data-target="#rowForm" class="btn btn-success pull-left"> Add new Row </button>
-                            <button type="button" class="btn btn-danger pull-right" v-on:click="removeRows">Delete Selected </button>
+                            <button type="button" data-toggle="modal" data-target="#rowForm" class="btn btn-success pull-left"> Add new Row </button>
+                            <button type="button" class="btn btn-danger pull-right">Delete Selected </button>
                         </div>
                 </div>
                 <br/>
@@ -39,38 +41,6 @@
             </h3>
         </div>
     </div>
-</div>
-
-<div id="rowForm" class="modal fade">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <form class="ui form">
-  <h4 class="ui dividing header">Shipping Information</h4>
-  <div class="field">
-    <label>Name</label>
-    <div class="two fields">
-      <div class="field">
-        <input type="text" name="shipping[first-name]" placeholder="First Name">
-      </div>
-      <div class="field">
-        <input type="text" name="shipping[last-name]" placeholder="Last Name">
-      </div>
-    </div>
-  </div>
-</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 @section scripts{
