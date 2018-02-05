@@ -3,24 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace MvcPlayground.Models
+namespace JqDataTable
 {
+    /// <summary>
+    /// helper types for working with a jquery datatable serverside.
+    /// includes client data and necessary response objects
+    /// </summary>
     public class JqDataTable<T>
     {
-        // properties are not capital due to json mapping
-        public int draw { get; set; }
-        public int start { get; set; }
-        public int length { get; set; }
-        public List<Column> columns { get; set; }
-        public Search search { get; set; }
-        public List<Order> order { get; set; }
+        [JsonProperty("draw")]
+        public int Draw { get; set; }
+        [JsonProperty("start")]
+        public int Start { get; set; }
+        [JsonProperty("length")]
+        public int Length { get; set; }
+        [JsonProperty("columns")]
+        public List<Column> Columns { get; set; }
+        [JsonProperty("search")]
+        public Search Search { get; set; }
+        [JsonProperty("order")]
+        public List<Order> Order { get; set; }
 
-        public IEnumerable<T> results { get; set; }
+        [JsonProperty("results")]
+        public IEnumerable<T> Results { get; set; }
         private IEnumerable<T> Source { get; set; } 
  
         public void Init(IEnumerable<T> source){
             // state changing
-            results = source;
+            Results = source;
             // immutable original
             Source = source;
         }
@@ -29,63 +39,86 @@ namespace MvcPlayground.Models
 
             return new Response<T>
             {
-                draw = draw,
-                recordsTotal = Source.Count(),
-                recordsFiltered = Source.Count(),
-                data = results 
+                Draw = Draw,
+                RecordsTotal = Source.Count(),
+                RecordsFiltered = Source.Count(),
+                Data = Results 
             };
         }
     }
 
-    // received data
     public class Column
     {
-        public string data { get; set; }
-        public string name { get; set; }
-        public bool searchable { get; set; }
-        public bool orderable { get; set; }
-        public Search search { get; set; }
+        [JsonProperty("data")]
+        public string Data { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("searchable")]
+        public bool Searchable { get; set; }
+        [JsonProperty("orderable")]
+        public bool Orderable { get; set; }
+        [JsonProperty("search")]
+        public Search Search { get; set; }
     }
 
     public class Search
     {
-        public string value { get; set; }
-        public string regex { get; set; }
+        [JsonProperty("Value")]
+        public string Value { get; set; }
+        [JsonProperty("regex")]
+        public string Regex { get; set; }
     }
 
     public class Order
     {
-        public int column { get; set; }
-        public string dir { get; set; }
+        [JsonProperty("column")]
+        public int Column { get; set; }
+        [JsonProperty("dir")]
+        public string Dir { get; set; }
     }
 
-    // returned data
+    /// <summary>
+    /// The data that the jquery datatable expects in response
+    /// </summary>
     public class Response<T>{
-        public long draw { get; set; }
-        public int recordsTotal { get; set; }
-        public int recordsFiltered { get; set; }
-        public IEnumerable<T> data { get; set; }
+        [JsonProperty("draw")]
+        public long Draw { get; set; }
+        [JsonProperty("recordsTotal")]
+        public int RecordsTotal { get; set; }
+        [JsonProperty("recordsFiltered")]
+        public int RecordsFiltered { get; set; }
+        [JsonProperty("data")]
+        public IEnumerable<T> Data { get; set; }
     }
 
+    /// <summary>
+    /// JqDataTable serverside operations as extension methods
+    /// </summary>
     public static class JqExtensions {
-        
+
+        /// <summary>
+        /// Uses current instance of JqDataTable to sort the source
+        /// </summary>
+        /// <returns>The sort.</returns>
+        /// <param name="model">Model.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static JqDataTable<T> Sort<T>(this JqDataTable<T> model){
 
             // is sort
-            if (model.order.Count == 1)
+            if (model.Order.Count == 1)
             {
 
-                var column = model.order.ElementAt(0).column;
-                var sortType = model.order.ElementAt(0).dir;
-                var colName = model.columns.ElementAt(column).data;
+                var column = model.Order.ElementAt(0).Column;
+                var sortType = model.Order.ElementAt(0).Dir;
+                var colName = model.Columns.ElementAt(column).Data;
 
                 if (sortType == "asc")
                 {
-                    model.results = model.results.OrderBy(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
+                    model.Results = model.Results.OrderBy(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
                 }
                 else
                 {
-                    model.results = model.results.OrderByDescending(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
+                    model.Results = model.Results.OrderByDescending(x => x.GetType().GetProperty(colName).GetValue(x, null)).ToList();
                 }
 
             }
@@ -93,13 +126,19 @@ namespace MvcPlayground.Models
             return model;
         }
 
+        /// <summary>
+        /// Uses current state of JqDataTable instance to search the source
+        /// </summary>
+        /// <returns>The search.</returns>
+        /// <param name="model">Model.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static JqDataTable<T> Search<T>(this JqDataTable<T> model){
             
-            if (!String.IsNullOrEmpty(model.search.value))
+            if (!String.IsNullOrEmpty(model.Search.Value))
             {
-                var query = model.search.value.ToLower();
+                var query = model.Search.Value.ToLower();
 
-                model.results = model.results.Where(x =>
+                model.Results = model.Results.Where(x =>
                 {
                     // check all keys for value 
                     foreach (var prop in x.GetType().GetProperties())
@@ -118,9 +157,15 @@ namespace MvcPlayground.Models
             return model;
         }
 
+        /// <summary>
+        /// Uses the current instance of the JqDataTable to paginate the instance
+        /// </summary>
+        /// <returns>The paginate.</returns>
+        /// <param name="model">Model.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
         public static JqDataTable<T> Paginate<T>(this JqDataTable<T> model){
 
-            model.results = model.results.Skip((int)model.start).Take((int)model.length).ToList();
+            model.Results = model.Results.Skip((int)model.Start).Take((int)model.Length).ToList();
 
             return model;
         }
