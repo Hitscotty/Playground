@@ -13,6 +13,7 @@ namespace MvcPlayground.Controllers
     public class HomeController : Controller
     {
         public class Sample{
+            public string id { get; set; }
             public string name { get; set; }
             public string last { get; set; }
             public string title { get; set; }
@@ -22,7 +23,7 @@ namespace MvcPlayground.Controllers
         }
         public List<Sample> SampleDataBaseData = new List<Sample>{
             
-   new Sample {  
+   new Sample { id = "1",  
       name="Tiger Nixon",
       last="System Architect",
       title="Edinburgh",
@@ -30,7 +31,7 @@ namespace MvcPlayground.Controllers
       date="2011/04/25",
       salary="$320,800"
    },
-   new Sample {  
+   new Sample { id = "2",  
       name="Garrett Winters",
       last="Accountant",
       title="Tokyo",
@@ -38,7 +39,7 @@ namespace MvcPlayground.Controllers
       date="2011/07/25",
       salary="$170,750"
    },
-   new Sample {  
+   new Sample { id = "4",  
       name="Ashton Cox",
       last="Junior Technical Author",
       title="San Francisco",
@@ -46,7 +47,7 @@ namespace MvcPlayground.Controllers
       date="2009/01/12",
       salary="$86,000"
    },
-   new Sample {  
+   new Sample { id = "5",  
       name="Cedric Kelly",
       last="Senior Javascript Developer",
       title="Edinburgh",
@@ -54,7 +55,7 @@ namespace MvcPlayground.Controllers
       date="2012/03/29",
       salary="$433,060"
    },
-   new Sample {  
+   new Sample { id = "6",  
       name="Airi Satou",
       last="Accountant",
       title="Tokyo",
@@ -62,7 +63,7 @@ namespace MvcPlayground.Controllers
       date="2008/11/28",
       salary="$162,700"
    },
-   new Sample {  
+   new Sample { id = "7",  
       name="Brielle Williamson",
       last="Integration Specialist",
       title="New York",
@@ -70,7 +71,7 @@ namespace MvcPlayground.Controllers
       date="2012/12/02",
       salary="$372,000"
    },
-   new Sample {  
+   new Sample { id = "8",  
       name="Herrod Chandler",
       last="Sales Assistant",
       title="San Francisco",
@@ -78,7 +79,7 @@ namespace MvcPlayground.Controllers
       date="2012/08/06",
       salary="$137,500"
    },
-   new Sample {  
+   new Sample { id = "9",  
       name="Rhona Davidson",
       last="Integration Specialist",
       title="Tokyo",
@@ -86,7 +87,7 @@ namespace MvcPlayground.Controllers
       date="2010/10/14",
       salary="$327,900"
    },
-   new Sample {  
+   new Sample { id = "10",  
       name="Colleen Hurst",
       last="Javascript Developer",
       title="San Francisco",
@@ -94,7 +95,7 @@ namespace MvcPlayground.Controllers
       date="2009/09/15",
       salary="$205,500"
    },
-   new Sample {  
+   new Sample { id = "12",  
       name="Sonya Frost",
       last="Software Engineer",
       title="Edinburgh",
@@ -102,7 +103,7 @@ namespace MvcPlayground.Controllers
       date="2008/12/13",
       salary="$103,600"
    },
-   new Sample {  
+   new Sample { id = "11",  
       name="Jena Gaines",
       last="Office Manager",
       title="London",
@@ -110,7 +111,7 @@ namespace MvcPlayground.Controllers
       date="2008/12/19",
       salary="$90,560"
    },
-   new Sample {  
+   new Sample { id = "13",  
       name="Quinn Flynn",
       last="Support Lead",
       title="Edinburgh",
@@ -118,7 +119,7 @@ namespace MvcPlayground.Controllers
       date="2013/03/03",
       salary="$342,000"
    },
-   new Sample {  
+   new Sample { id = "14",  
       name="Charde Marshall",
       last="Regional Director",
       title="San Francisco",
@@ -126,7 +127,7 @@ namespace MvcPlayground.Controllers
       date="2008/10/16",
       salary="$470,600"
    },
-   new Sample {  
+   new Sample { id = "15",  
       name="Haley Kennedy",
       last="Senior Marketing Designer",
       title="London",
@@ -134,7 +135,7 @@ namespace MvcPlayground.Controllers
       date="2012/12/18",
       salary="$313,500"
    },
-   new Sample {  
+   new Sample { id = "16",  
       name="Tatyana Fitzpatrick",
       last="Regional Director",
       title="London",
@@ -142,7 +143,7 @@ namespace MvcPlayground.Controllers
       date="2010/03/17",
       salary="$385,750"
    },
-   new Sample {  
+   new Sample { id = "17",  
       name="Michael Silva",
       last="Marketing Designer",
       title="London",
@@ -150,7 +151,7 @@ namespace MvcPlayground.Controllers
       date="2012/11/27",
       salary="$198,500"
    },
-   new Sample {  
+   new Sample { id = "18",  
       name="Paul Byrd",
       last="Chief Financial Officer (CFO)",
       title="New York",
@@ -158,7 +159,7 @@ namespace MvcPlayground.Controllers
       date="2010/06/09",
       salary="$725,000"
    },
-   new Sample {  
+   new Sample { id = "19",  
       name="Gloria Little",
       last="Systems Administrator",
       title="New York",
@@ -166,7 +167,7 @@ namespace MvcPlayground.Controllers
       date="2009/04/10",
       salary="$237,500"
    },
-   new Sample {  
+   new Sample { id = "20",  
       name="Bradley Greer",
       last="Software Engineer",
       title="London",
@@ -174,7 +175,7 @@ namespace MvcPlayground.Controllers
       date="2012/10/13",
       salary="$132,000"
    },
-   new Sample {  
+   new Sample { id = "21",  
       name="Dai Rios",
       last="Personnel Lead",
       title="Edinburgh",
@@ -182,7 +183,7 @@ namespace MvcPlayground.Controllers
       date="2012/09/26",
       salary="$217,500"
    },
-   new Sample {  
+   new Sample { id = "22",  
       name="Jenette Caldwell",
       last="Development Lead",
       title="New York",
@@ -190,7 +191,7 @@ namespace MvcPlayground.Controllers
       date="2011/09/03",
       salary="$345,000"
    },
-   new Sample {  
+   new Sample { id = "23",  
       name="Yuri Berry",
       last="Chief Marketing Officer (CMO)",
       title="New York",
@@ -198,7 +199,7 @@ namespace MvcPlayground.Controllers
       date="2009/06/25",
       salary="$675,000"
    },
-   new Sample {  
+   new Sample { id = "24",  
       name="Caesar Vance",
       last="Pre-Sales Support",
       title="New York",
@@ -206,7 +207,7 @@ namespace MvcPlayground.Controllers
       date="2011/12/12",
       salary="$106,450"
    },
-   new Sample {  
+   new Sample { id = "25",  
       name="Doris Wilder",
       last="Sales Assistant",
       title="Sidney",
@@ -214,7 +215,7 @@ namespace MvcPlayground.Controllers
       date="2010/09/20",
       salary="$85,600"
    },
-   new Sample {  
+   new Sample { id = "26",  
       name="Angelica Ramos",
       last="Chief Executive Officer (CEO)",
       title="London",
@@ -222,7 +223,7 @@ namespace MvcPlayground.Controllers
       date="2009/10/09",
       salary="$1,200,000"
    },
-   new Sample {  
+   new Sample { id = "27",  
       name="Gavin Joyce",
       last="Developer",
       title="Edinburgh",
@@ -230,7 +231,7 @@ namespace MvcPlayground.Controllers
       date="2010/12/22",
       salary="$92,575"
    },
-   new Sample {  
+   new Sample { id = "28",  
       name="Jennifer Chang",
       last="Regional Director",
       title="Singapore",
@@ -238,7 +239,7 @@ namespace MvcPlayground.Controllers
       date="2010/11/14",
       salary="$357,650"
    },
-   new Sample {  
+   new Sample { id = "29",  
       name="Brenden Wagner",
       last="Software Engineer",
       title="San Francisco",
@@ -246,7 +247,7 @@ namespace MvcPlayground.Controllers
       date="2011/06/07",
       salary="$206,850"
    },
-   new Sample {  
+   new Sample { id = "30",  
       name="Fiona Green",
       last="Chief Operating Officer (COO)",
       title="San Francisco",
@@ -254,7 +255,7 @@ namespace MvcPlayground.Controllers
       date="2010/03/11",
       salary="$850,000"
    },
-   new Sample {  
+   new Sample { id = "31",  
       name="Shou Itou",
       last="Regional Marketing",
       title="Tokyo",
@@ -262,7 +263,7 @@ namespace MvcPlayground.Controllers
       date="2011/08/14",
       salary="$163,000"
    },
-   new Sample {  
+   new Sample { id = "32",  
       name="Michelle House",
       last="Integration Specialist",
       title="Sidney",
@@ -270,7 +271,7 @@ namespace MvcPlayground.Controllers
       date="2011/06/02",
       salary="$95,400"
    },
-   new Sample {  
+   new Sample { id = "33",  
       name="Suki Burks",
       last="Developer",
       title="London",
@@ -278,7 +279,7 @@ namespace MvcPlayground.Controllers
       date="2009/10/22",
       salary="$114,500"
    },
-   new Sample {  
+   new Sample { id = "34",  
       name="Prescott Bartlett",
       last="Technical Author",
       title="London",
@@ -286,7 +287,7 @@ namespace MvcPlayground.Controllers
       date="2011/05/07",
       salary="$145,000"
    },
-   new Sample {  
+   new Sample { id = "35",  
       name="Gavin Cortez",
       last="Team Leader",
       title="San Francisco",
@@ -294,7 +295,7 @@ namespace MvcPlayground.Controllers
       date="2008/10/26",
       salary="$235,500"
    },
-   new Sample {  
+   new Sample { id = "36",  
       name="Martena Mccray",
       last="Post-Sales support",
       title="Edinburgh",
@@ -302,7 +303,7 @@ namespace MvcPlayground.Controllers
       date="2011/03/09",
       salary="$324,050"
    },
-   new Sample {  
+   new Sample { id = "37",  
       name="Unity Butler",
       last="Marketing Designer",
       title="San Francisco",
@@ -310,7 +311,7 @@ namespace MvcPlayground.Controllers
       date="2009/12/09",
       salary="$85,675"
    },
-   new Sample {  
+   new Sample { id = "38",  
       name="Howard Hatfield",
       last="Office Manager",
       title="San Francisco",
@@ -318,7 +319,7 @@ namespace MvcPlayground.Controllers
       date="2008/12/16",
       salary="$164,500"
    },
-   new Sample {  
+   new Sample { id = "39",  
       name="Hope Fuentes",
       last="Secretary",
       title="San Francisco",
@@ -326,7 +327,7 @@ namespace MvcPlayground.Controllers
       date="2010/02/12",
       salary="$109,850"
    },
-   new Sample {  
+   new Sample { id = "40",  
       name="Vivian Harrell",
       last="Financial Controller",
       title="San Francisco",
@@ -334,7 +335,7 @@ namespace MvcPlayground.Controllers
       date="2009/02/14",
       salary="$452,500"
    },
-   new Sample {  
+   new Sample { id = "41",  
       name="Timothy Mooney",
       last="Office Manager",
       title="London",
@@ -342,7 +343,7 @@ namespace MvcPlayground.Controllers
       date="2008/12/11",
       salary="$136,200"
    },
-   new Sample {  
+   new Sample { id = "42",  
       name="Jackson Bradshaw",
       last="Director",
       title="New York",
@@ -350,7 +351,7 @@ namespace MvcPlayground.Controllers
       date="2008/09/26",
       salary="$645,750"
    },
-   new Sample {  
+   new Sample { id = "43",  
       name="Olivia Liang",
       last="Support Engineer",
       title="Singapore",
@@ -358,7 +359,7 @@ namespace MvcPlayground.Controllers
       date="2011/02/03",
       salary="$234,500"
    },
-   new Sample {  
+   new Sample { id = "44",  
       name="Bruno Nash",
       last="Software Engineer",
       title="London",
@@ -366,7 +367,7 @@ namespace MvcPlayground.Controllers
       date="2011/05/03",
       salary="$163,500"
    },
-   new Sample {  
+   new Sample { id = "45",  
       name="Sakura Yamamoto",
       last="Support Engineer",
       title="Tokyo",
@@ -374,7 +375,7 @@ namespace MvcPlayground.Controllers
       date="2009/08/19",
       salary="$139,575"
    },
-   new Sample {  
+   new Sample { id = "46",  
       name="Thor Walton",
       last="Developer",
       title="New York",
@@ -382,7 +383,7 @@ namespace MvcPlayground.Controllers
       date="2013/08/11",
       salary="$98,540"
    },
-   new Sample {  
+   new Sample { id = "47",  
       name="Finn Camacho",
       last="Support Engineer",
       title="San Francisco",
@@ -390,7 +391,7 @@ namespace MvcPlayground.Controllers
       date="2009/07/07",
       salary="$87,500"
    },
-   new Sample {  
+   new Sample { id = "48",  
       name="Serge Baldwin",
       last="Data Coordinator",
       title="Singapore",
@@ -398,7 +399,7 @@ namespace MvcPlayground.Controllers
       date="2012/04/09",
       salary="$138,575"
    },
-   new Sample {  
+   new Sample { id = "49",  
       name="Zenaida Frank",
       last="Software Engineer",
       title="New York",
@@ -406,7 +407,7 @@ namespace MvcPlayground.Controllers
       date="2010/01/04",
       salary="$125,250"
    },
-   new Sample {  
+   new Sample { id = "50",  
       name="Zorita Serrano",
       last="Software Engineer",
       title="San Francisco",
@@ -414,7 +415,7 @@ namespace MvcPlayground.Controllers
       date="2012/06/01",
       salary="$115,000"
    },
-   new Sample {  
+   new Sample { id = "51",  
       name="Jennifer Acosta",
       last="Junior Javascript Developer",
       title="Edinburgh",
@@ -422,7 +423,7 @@ namespace MvcPlayground.Controllers
       date="2013/02/01",
       salary="$75,650"
    },
-   new Sample {  
+   new Sample { id = "52",  
       name="Cara Stevens",
       last="Sales Assistant",
       title="New York",
@@ -430,7 +431,7 @@ namespace MvcPlayground.Controllers
       date="2011/12/06",
       salary="$145,600"
    },
-   new Sample {  
+   new Sample { id = "53",  
       name="Hermione Butler",
       last="Regional Director",
       title="London",
@@ -438,7 +439,7 @@ namespace MvcPlayground.Controllers
       date="2011/03/21",
       salary="$356,250"
    },
-   new Sample {  
+   new Sample { id = "54",  
       name="Lael Greer",
       last="Systems Administrator",
       title="London",
@@ -446,7 +447,7 @@ namespace MvcPlayground.Controllers
       date="2009/02/27",
       salary="$103,500"
    },
-   new Sample {  
+   new Sample { id = "55",  
       name="Jonas Alexander",
       last="Developer",
       title="San Francisco",
@@ -454,7 +455,7 @@ namespace MvcPlayground.Controllers
       date="2010/07/14",
       salary="$86,500"
    },
-   new Sample {  
+   new Sample { id = "56",  
       name="Shad Decker",
       last="Regional Director",
       title="Edinburgh",
@@ -462,7 +463,7 @@ namespace MvcPlayground.Controllers
       date="2008/11/13",
       salary="$183,000"
    },
-   new Sample {  
+   new Sample { id = "57",  
       name="Michael Bruce",
       last="Javascript Developer",
       title="Singapore",
@@ -470,7 +471,7 @@ namespace MvcPlayground.Controllers
       date="2011/06/27",
       salary="$183,000"
    },
-   new Sample {  
+   new Sample { id = "58",  
       name="Donna Snider",
       last="Customer Support",
       title="New York",

@@ -1,7 +1,7 @@
 ﻿var app = new Vue({
   el: "#PaginationExamples",
   data() {
-    return {$table: [], checked: []};
+    return {$table: [], $editModal: [], $editTable: [], checked: {}};
   },
   methods: {
     initTable() {
@@ -27,12 +27,11 @@
           75,
           100
         ],
-        // scrollY: 200,  // set true for deffered rows deferRender: true, // set true
-        // for deffered rows scroller: true, // set true for deffered rows
         ajax: {
           url: "/Home/GetData",
           type: "POST"
         },
+        rowId: "id",
         language: {
           search: "",
           searchPlaceholder: "Search . . ."
@@ -43,31 +42,35 @@
             searchable: false,
             orderable: false,
             className: "dt-body-center",
-            render: function (data, type, full, meta) {
-              // generate unique identifier
-              var id = app.uniqID(full);
-              // default is unselected
-              if (!app.checked[id]) {
-                app.checked[id] = false;
+            render: function (data, type, row, meta) {
+              // generate unique identifier default is unselected
+              var check = "";
+
+              if (app.checked[row.id]) {
+                if (app.checked[row.id].state) {
+                  check = "checked";
+                }
               }
 
-              var check = app.checked[id]
-                ? "checked"
-                : "";
-
               // return state of checkbox
-              return `<input class="tcb" type="checkbox" name="tcb_${
-              meta.row}" value="${id}" ${check}>`;
+              return `<input style="height:20px;width:20px" class="tcb" type="checkbox" name="tcb_${
+              meta.row}" value="${row.id}" ${check}>`;
             }
+          }, {
+            targets: 1,
+            visible: false
           }
         ],
         order: [
-          1, "asc"
+          2, "asc"
         ],
         columns: [
           {
             title: "✔️",
             data: "_"
+          }, {
+            title: "",
+            data: "id"
           }, {
             title: "Name",
             data: "name"
@@ -102,6 +105,67 @@
         app.checkBoxHandler(this);
       });
     },
+    initEditTable() {
+      var selectedRows = Object
+        .keys(app.checked)
+        .filter(c => app.checked[c].state === true)
+        .map(c => app.checked[c].row);
+
+      this.$editTable = $("#editTable").DataTable({
+        destroy: true,
+        searching: false,
+        ordering: false,
+        data: selectedRows,
+        columns: [
+          {
+            data: "name",
+            title: "Name"
+          }, {
+            data: "last",
+            title: "Last"
+          }, {
+            data: "title",
+            title: "Title"
+          }
+        ],
+        columnDefs: [
+          {
+            targets: 0,
+            render: function (data, display, row, meta) {
+              return `
+              <div class="field">
+                <input style="padding:0;width:100%" type="text" name="${
+              row.id}[]" :v-model="checked[${row.id}].row.name" value="${data}"/>
+              </div>`;
+            }
+          }, {
+            targets: 1,
+            render: function (data, display, row, meta) {
+              return `
+              <div class="field">
+                <input style="padding:0;width:80%" type="text" name="${
+              row.id}[]" :v-model="checked[${row.id}].row.last" value="${data}"/>
+              </div>`;
+            }
+          }, {
+            targets: 2,
+            render: function (data, display, row, meta) {
+              return `
+                <input style="padding:0;width:80%" type="text" name="${
+              row.id}[]" :v-model="checked[${row.id}].row.title" value="${data}"/>
+              `;
+            }
+          }
+        ],
+        paging: false
+      });
+    },
+    initDialogs() {
+      this.$editModal = $("#editModal");
+      this
+        .$editModal
+        .dialog({autoOpen: false, height: 500, width: "80%", modal: true});
+    },
     checkBoxHandler(elem) {
       var $elem = $(elem);
       var checked = $elem.prop("checked");
@@ -110,10 +174,13 @@
         .prop("name")
         .split("_")[1];
 
-      console.log(`checked box : ${checked};row : ${row}; id: ${id}`);
-      app.checked[id] = checked;
-
-      // do something
+      app.$set(app.checked, id, {
+        state: checked,
+        row: app
+          .$table
+          .row(`#${id}`)
+          .data()
+      });
     },
     // generates a unique id using object property values requires a primary key of
     // some sort in object
@@ -123,9 +190,17 @@
     addRow() {
       // call to server
     },
-    removeRows() {
-      console.log("remove rows");
-      // call to server
+    editChecked() {
+      this.initEditTable();
+      console.dir(app.checked);
+      app
+        .$editModal
+        .dialog("open");
+    },
+    applyEdits() {
+      var editedRows = $(".ui.form").form("get values");
+      console.log("edited rows");
+      console.dir(editedRows);
     }
   },
   created() {
@@ -134,5 +209,6 @@
   mounted() {
     console.log("mounted");
     this.initTable();
+    this.initDialogs();
   }
 });
