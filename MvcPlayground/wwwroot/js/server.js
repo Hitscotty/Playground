@@ -1,7 +1,7 @@
 ﻿var app = new Vue({
   el: "#PaginationExamples",
   data() {
-    return {$table: [], $editModal: [], $editTable: [], checked: {}};
+    return {$table: [], $editModal: [], $editTable: [], checked: {}, sampleData: []};
   },
   methods: {
     initTable() {
@@ -201,10 +201,34 @@
       var editedRows = $(".ui.form").form("get values");
       console.log("edited rows");
       console.dir(editedRows);
+    },
+    getSampleData(){
+        $.get("/Home/GetSampleData", function(res){
+            app.sampleData = res;
+        });
+    },
+    prev(){
+        for(var i = 0; i < 10; i++){
+            var p = this.sampleData.pop();
+            this.sampleData.unshift(p);
+        }
+    },
+    next(){
+        for(var i = 0; i < 10; i++){
+            var p = this.sampleData.shift();
+            this.sampleData.push(p);
+        }
     }
+  },
+  computed: {
+    firstN: function(){
+      return this.sampleData.slice(0, 10);
+    }
+ 
   },
   created() {
     console.log("created");
+    this.getSampleData();
   },
   mounted() {
     console.log("mounted");

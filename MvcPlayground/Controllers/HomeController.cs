@@ -508,6 +508,11 @@ namespace MvcPlayground.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet]
+        public JsonResult GetSampleData(){
+            return new JsonResult(SampleDataBaseData);   
+        }
+
 
         [HttpPost]
         public JsonResult GetData(JqDataTable<Sample> model)
