@@ -1,5 +1,107 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@{ ViewData["Title"] = "Pagination"; } @section head{
+<link rel="stylesheet" type="text/css" href="~/css/vuetiful.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/components/form.css"
+/>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> }
+
+
+<div id="PaginationExamples" class="container-fluid">
+    <div class="col-lg-12">
+        <div class="row">
+            <h1 v-if="!isPalletSelected"> DataTables With Serverside Pagination Sample </h1>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="datatable">
+                    <div class="row">
+                        <button type="button" data-toggle="modal" data-target="#rowForm" class="btn btn-success pull-left"> Add new Row </button>
+                        <button type="button" class="btn btn-warning pull-right" v-on:click="editChecked()">Edit Selected </button>
+                    </div>
+                </div>
+
+                <br/>
+                <div class="row">
+                    <table id="table" class="datatable-columns" cellspacing="0" width="100%">
+                    </table>
+                </div>
+
+                <div style="display:none;" id="editModal" title="Edit Selected Rows">
+                    <form class="ui form">
+                        <div class="field">
+                            <label> Selected Rows </label>
+                            <table id="editTable" class="display" width="100%">
+                            </table>
+                        </div>
+                        <button type="button" class="ui button" v-on:click="applyEdits"> Apply Edits </button>
+                    </form>
+
+                </div>
+            </div>
+            <br/>
+            <hr/>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>
+                        V-For Table with cyclic Arrays
+                    </h1>
+
+                    <table>
+                        <tbody>
+                            <tr v-for="data in firstN" track-by="$index">
+                                <td>{{ data.name }}</td>
+                                <td>{{ data.last }}</td>
+                                <td>{{ data.title }}</td>
+                                <td>{{ data.location }}</td>
+                                <td>{{ data.date }}</td>
+                                <td>{{ data.salary }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" align="center">
+                                    <button v-on:click="prev()">Prev</button>
+                                </td>
+
+                                <td colspan="3" align="center">
+                                    <button v-on:click="next()"> Next </button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <h1> Useful Docs </h1>
+                <h3>
+                    <a href="https://datatables.net/manual/server-side" target="_blank"> Documentation for Server Side control over this DataTable</a>
+                </h3>
+                <h3>
+                    <a href="https://www.gyrocode.com/articles/jquery-datatables-checkboxes/" target="_blank"> Using Row Callbacks</a>
+                </h3>
+                <h3>
+                    <a href="https://datatables.net/reference/option/drawCallback" target="_blank"> Create custom design and functionality with drawCallback</a>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/components/form.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.16/features/scrollResize/dataTables.scrollResize.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <script type="text/javascript" src="~/js/server.js"></script>
+    }

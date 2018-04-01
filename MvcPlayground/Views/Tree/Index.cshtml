@@ -1,5 +1,240 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{ ViewData["Title"] = "jsTree"; }
+<!-- head -->
+@section head{
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.18.0/sweetalert2.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" /> }
+<div id="TreeExamples" style="min-height:80vh">
+    <h1> Pallet Example </h1>
+    <div class="card" style="min-height:50vh">
+        <div class="card-header">
+            Pallet Editor
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-4">
+                    <div class="card" style="min-height:50vh">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="input-group">
+                                    <input type="text" class="form-control m-2" placeholder="search ... ">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="jstree">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="card" style="min-height:50vh">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" role="tab" data-toggle="tab" aria-controls="home" aria-selected="true" href="#d&d">Drag & Drop</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" role="tab" data-toggle="tab" aria-controls="bulk" aria-selected="false" href="#bulk">Bulk</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" role="tab" data-toggle="tab" aria-controls="merge" aria-selected="false" href="#merge">Merge Tool</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active container" id="d&d" role="tabpanel" aria-labelledby="d&d-tab">
+                                    <h2 class="text-muted text-center"> No Pallet Selected </h2>
+                                </div>
+                                <div class="tab-pane container" id="bulk" role="tabpanel" aria-labelledby="buk-tab">
+                                    <form class="ui form">
+                                        <h4 class="ui dividing header">Bulk Tab</h4>
+                                        <div class="field">
+                                            <label>Name</label>
+                                            <div class="two fields">
+                                                <div class="field">
+                                                    <input type="text" name="shipping[first-name]" placeholder="First Name">
+                                                </div>
+                                                <div class="field">
+                                                    <input type="text" name="shipping[last-name]" placeholder="Last Name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label>Billing Address</label>
+                                            <div class="fields">
+                                                <div class="twelve wide field">
+                                                    <input type="text" name="shipping[address]" placeholder="Street Address">
+                                                </div>
+                                                <div class="four wide field">
+                                                    <input type="text" name="shipping[address-2]" placeholder="Apt #">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="ui dividing header">Billing Information</h4>
+                                        <div class="field">
+                                            <label>Card Type</label>
+                                            <div class="ui selection dropdown">
+                                                <input type="hidden" name="card[type]">
+                                                <div class="default text">Type</div>
+                                                <i class="dropdown icon"></i>
+                                                <div class="menu">
+                                                    <div class="item" data-value="visa">
+                                                        <i class="visa icon"></i>
+                                                        Visa
+                                                    </div>
+                                                    <div class="item" data-value="amex">
+                                                        <i class="amex icon"></i>
+                                                        American Express
+                                                    </div>
+                                                    <div class="item" data-value="discover">
+                                                        <i class="discover icon"></i>
+                                                        Discover
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fields">
+                                            <div class="seven wide field">
+                                                <label>Card Number</label>
+                                                <input type="text" name="card[number]" maxlength="16" placeholder="Card #">
+                                            </div>
+                                            <div class="three wide field">
+                                                <label>CVC</label>
+                                                <input type="text" name="card[cvc]" maxlength="3" placeholder="CVC">
+                                            </div>
+                                            <div class="six wide field">
+                                                <label>Expiration</label>
+                                                <div class="two fields">
+                                                    <div class="field">
+                                                        <select class="ui fluid search dropdown" name="card[expire-month]">
+                                                            <option value="">Month</option>
+                                                            <option value="1">January</option>
+                                                            <option value="2">February</option>
+                                                            <option value="3">March</option>
+                                                            <option value="4">April</option>
+                                                            <option value="5">May</option>
+                                                            <option value="6">June</option>
+                                                            <option value="7">July</option>
+                                                            <option value="8">August</option>
+                                                            <option value="9">September</option>
+                                                            <option value="10">October</option>
+                                                            <option value="11">November</option>
+                                                            <option value="12">December</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="field">
+                                                        <input type="text" name="card[expire-year]" maxlength="4" placeholder="Year">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="ui dividing header">Receipt</h4>
+                                        <div class="field">
+                                            <label>Send Receipt To:</label>
+                                            <div class="ui fluid multiple search selection dropdown">
+                                                <input type="hidden" name="receipt">
+                                                <i class="dropdown icon"></i>
+                                                <div class="default text">Saved Contacts</div>
+                                                <div class="menu">
+                                                    <div class="item" data-value="jenny" data-text="Jenny">
+                                                        <img class="ui mini avatar image" src="/images/avatar/small/jenny.jpg"> Jenny Hess
+                                                    </div>
+                                                    <div class="item" data-value="elliot" data-text="Elliot">
+                                                        <img class="ui mini avatar image" src="/images/avatar/small/elliot.jpg"> Elliot Fu
+                                                    </div>
+                                                    <div class="item" data-value="stevie" data-text="Stevie">
+                                                        <img class="ui mini avatar image" src="/images/avatar/small/stevie.jpg"> Stevie Feliciano
+                                                    </div>
+                                                    <div class="item" data-value="christian" data-text="Christian">
+                                                        <img class="ui mini avatar image" src="/images/avatar/small/christian.jpg"> Christian
+                                                    </div>
+                                                    <div class="item" data-value="matt" data-text="Matt">
+                                                        <img class="ui mini avatar image" src="/images/avatar/small/matt.jpg"> Matt
+                                                    </div>
+                                                    <div class="item" data-value="justen" data-text="Justen">
+                                                        <img class="ui mini avatar image" src="/images/avatar/small/justen.jpg"> Justen Kitsune
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui segment">
+                                            <div class="field">
+                                                <div class="ui toggle checkbox">
+                                                    <input type="checkbox" name="gift" tabindex="0" class="hidden">
+                                                    <label>Do not include a receipt in the package</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui button" tabindex="0">Submit Order</div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane container" id="merge" role="tabpanel" aria-labelledby="merge-tab">
+                                    <h2 class="text-muted text-center"> Merge Tab </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn btn-warning btn-sm float-left" type="button" v-on:click='viewAll'> View All </button>
+                    <button class="btn btn-success btn-sm float-right" type="button" v-on:click='save'> Save </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.18.0/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+<script src="~/json/pallets.js"></script>
+<script>
+    Vue.config.devtools = true;
+
+
+    var app = new Vue({
+        el: '#TreeExamples',
+        data: {
+            title: 'JSTREE',
+            $jstree: [],
+            selectedPallet: null
+        },
+        methods: {
+            initPalletTree() {
+                this.$jstree = $('#jstree').jstree(PALLETS);
+
+                this.$jstree.on('select_node.jstree', function (node, selected) {
+                    console.log('selected a node');
+                    console.dir(arguments);
+                    app.selectedPallet = 1
+                })
+            },
+            viewAll() {
+                swal('Any fool can use a computer')
+            },
+            save() {
+                swal('Would you like to save this pallet')
+            }
+        },
+        created: function () {},
+        mounted: function () {
+            this.initPalletTree();
+        },
+        computed: {
+            isPalletSelected: function () {
+                return this.selectedPallet != null
+            }
+        }
+    })
+</script>
+
 }
